@@ -51,6 +51,11 @@ const schemas = {
         .max(100000),
       optional: optionalScheme
     }),
+  gamesResult: Joi.object()
+    .options({ abortEarly: false, allowUnknown: false })
+    .keys({
+      optional: optionalScheme
+    }),
   settings: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
     .keys({
