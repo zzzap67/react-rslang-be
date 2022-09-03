@@ -4,10 +4,17 @@ const { userWord, wordId } = require('../../utils/validation/schemas');
 const { validator } = require('../../utils/validation/validator');
 
 const userWordService = require('./userWord.service');
+const gameResultService = require('../gameResult/gameResult.service');
 
 router.get('/', async (req, res) => {
   const userWords = await userWordService.getAll(req.userId);
-  res.status(OK).send(userWords.map(w => w.toResponse()));
+  const userResult = await gameResultService.get(req.userId);
+  console.log(userWords);
+  console.log(userResult);
+  const wordData = userWords.map(w => w.toResponse());
+  const resultData = userResult.map(w => w.toResponse());
+
+  res.status(OK).send({ "words": wordData, "gameResults": resultData });
 });
 
 router.get('/:wordId', validator(wordId, 'params'), async (req, res) => {
