@@ -32,7 +32,8 @@ const checkResult = async (userId, gameResult) => {
           resDayStats.totalAC = res.totalAC;
           resDayStats.rightSprint = res.rightSprint;
           resDayStats.totalSprint = res.totalSprint;
-          resDayStats.newWord = res.newWord;
+          resDayStats.newWordAC = res.newWordAC;
+          resDayStats.newWordSprint = res.newWordSprint;
           resDayStats.studiedWord = res.studiedWord;
           resDayStats.seriesAC = res.seriesAC;
           resDayStats.seriesSprint = res.seriesSprint;
@@ -43,7 +44,8 @@ const checkResult = async (userId, gameResult) => {
           resDayStats.totalAC = 0;
           resDayStats.rightSprint = 0;
           resDayStats.totalSprint = 0;
-          resDayStats.newWord = 0;
+          resDayStats.newWordAC = 0;
+          resDayStats.newWordSprint = 0;
           resDayStats.studiedWord = 0;
           resDayStats.seriesAC = 0;
           resDayStats.seriesSprint = 0;
@@ -107,7 +109,11 @@ const checkResult = async (userId, gameResult) => {
           newResult.totalSprint = res.totalSprint;
           newResult.currResult = res.currResult;
         } else {
-          resDayStats.newWord++;
+          if (gameResult.gameName === 'Sprint') {
+            resDayStats.newWordSprint++;
+          } else {
+            resDayStats.newWordAC++;
+          }
         }
 
         if (gameResult.gameName === 'Sprint') {
