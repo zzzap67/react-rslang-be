@@ -32,12 +32,7 @@ const GameStatsSchema = new Schema(
       required: true,
       default: 0
     },
-    newWordAC: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    newWordSprint: {
+    newWord: {
       type: Number,
       required: true,
       default: 0
