@@ -1,4 +1,4 @@
-const GameStats = require('./GameStats.model');
+const GameStats = require('./gameStats.model');
 const { NOT_FOUND_ERROR } = require('../../errors/appErrors');
 
 const get = async userId => {
