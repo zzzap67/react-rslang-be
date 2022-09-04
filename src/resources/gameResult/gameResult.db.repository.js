@@ -22,41 +22,42 @@ const checkResult = async (userId, gameResult) => {
   // console.log(requestArr);
   // console.log('pre start');
   for (item of requestArr) {
-    await GameStats.findOne({ userId, dates: gameResult.dates }, async (err, res) => {
-      if (res) {
-        resDayStats.userId = userId;
-        resDayStats.dates = res.dates;
-        resDayStats.rightAC = res.rightAC;
-        resDayStats.totalAC = res.totalAC;
-        resDayStats.rightSprint = res.rightSprint;
-        resDayStats.totalSprint = res.totalSprint;
-        resDayStats.newWord = res.newWord;
-        resDayStats.studiedWord = res.studiedWord;
-        resDayStats.seriesAC = res.seriesAC;
-        resDayStats.seriesSprint = res.seriesSprint;
-      } else {
-        resDayStats.userId = userId;
-        resDayStats.dates = gameResult.dates;
-        resDayStats.rightAC = 0;
-        resDayStats.totalAC = 0;
-        resDayStats.rightSprint = 0;
-        resDayStats.totalSprint = 0;
-        resDayStats.newWord = 0;
-        resDayStats.studiedWord = 0;
-        resDayStats.seriesAC = 0;
-        resDayStats.seriesSprint = 0;
-      }
-
-      if (gameResult.gameName === 'Sprint') {
-        if (gameResult.maxSeries > resDayStats.seriesSprint) {
-          resDayStats.seriesSprint = gameResult.maxSeries;
+    await GameStats.findOne(
+      { userId, dates: gameResult.dates },
+      async (err, res) => {
+        if (res) {
+          resDayStats.userId = userId;
+          resDayStats.dates = res.dates;
+          resDayStats.rightAC = res.rightAC;
+          resDayStats.totalAC = res.totalAC;
+          resDayStats.rightSprint = res.rightSprint;
+          resDayStats.totalSprint = res.totalSprint;
+          resDayStats.newWord = res.newWord;
+          resDayStats.studiedWord = res.studiedWord;
+          resDayStats.seriesAC = res.seriesAC;
+          resDayStats.seriesSprint = res.seriesSprint;
+        } else {
+          resDayStats.userId = userId;
+          resDayStats.dates = gameResult.dates;
+          resDayStats.rightAC = 0;
+          resDayStats.totalAC = 0;
+          resDayStats.rightSprint = 0;
+          resDayStats.totalSprint = 0;
+          resDayStats.newWord = 0;
+          resDayStats.studiedWord = 0;
+          resDayStats.seriesAC = 0;
+          resDayStats.seriesSprint = 0;
         }
-      } else {
-        if (gameResult.maxSeries > resDayStats.seriesAC) {
+
+        if (gameResult.gameName === 'Sprint') {
+          if (gameResult.maxSeries > resDayStats.seriesSprint) {
+            resDayStats.seriesSprint = gameResult.maxSeries;
+          }
+        } else if (gameResult.maxSeries > resDayStats.seriesAC) {
           resDayStats.seriesAC = gameResult.maxSeries;
         }
       }
-    });
+    );
     // console.log('pre end');
   }
   // console.log('start');
@@ -78,7 +79,7 @@ const checkResult = async (userId, gameResult) => {
 
         wordStatus.push(uW);
       }
-    )
+    );
   }
 
   // console.log(wordStatus);
@@ -143,8 +144,6 @@ const checkResult = async (userId, gameResult) => {
           }
         }
 
-
-
         // difficulty change
         if (
           newResult.currResult === -1 &&
@@ -187,7 +186,7 @@ const checkResult = async (userId, gameResult) => {
   // console.log(resDayStats)
   // console.log('refresh start');
   // console.log(wordStatus);
-  for (item of wordStatus.filter((elem) => elem.needRefresh)) {
+  for (item of wordStatus.filter(elem => elem.needRefresh)) {
     await userWords.findOneAndUpdate(
       { userId, wordId: item.wordId },
       { $set: { difficulty: item.difficulty } },

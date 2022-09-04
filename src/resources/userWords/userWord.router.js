@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   const wordData = userWords.map(w => w.toResponse());
   const resultData = userResult.map(w => w.toResponse());
 
-  res.status(OK).send({ "words": wordData, "gameResults": resultData });
+  res.status(OK).send({ words: wordData, gameResults: resultData });
 });
 
 router.get('/:wordId', validator(wordId, 'params'), async (req, res) => {
