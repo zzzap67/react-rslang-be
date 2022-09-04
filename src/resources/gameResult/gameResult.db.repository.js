@@ -1,5 +1,5 @@
 const GameResult = require('./gameResult.model');
-const GameStats = require('./GameStats.model');
+const GameStats = require('./gameStats.model');
 const userWords = require('../userWords/userWord.model');
 const { NOT_FOUND_ERROR } = require('../../errors/appErrors');
 
