@@ -189,9 +189,6 @@ const checkResult = async (userId, gameResult) => {
     );
   }
 
-  // console.log(resDayStats)
-  // console.log('refresh start');
-  // console.log(wordStatus);
   for (item of wordStatus.filter(elem => elem.needRefresh)) {
     await userWords.findOneAndUpdate(
       { userId, wordId: item.wordId },
